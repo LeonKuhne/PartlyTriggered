@@ -5,7 +5,7 @@
 #include "record.h"
 
 #include "gamepad.h"
-#include <xinput.h>
+#include <xinput.h>	// 360 controller
 
 using namespace std;
 

@@ -36,8 +36,10 @@ void requestCommand()
 void processCommand(string cmdString)
 {
 	vector<string> cmdParameters = split(cmdString);
-	string cmd = cmdParameters.front();
-	
+	string cmd = "";
+	if (cmdParameters.size()>0)
+		cmd = cmdParameters.front();
+
 	if (cmd == "quit")
 	{
 		exit(0);
