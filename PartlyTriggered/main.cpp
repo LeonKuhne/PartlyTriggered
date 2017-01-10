@@ -8,8 +8,10 @@ int main(int argc, char* argv[])
 	if (argc > 1)
 	{
 		ostringstream buffer;
-		for (int i = 0; i < argc; ++i)
+		for (int i = 1; i < argc; ++i)
+		{
 			buffer << argv[i] << " ";
+		}
 		string cmdString = buffer.str();
 		processCommand(cmdString);
 	}
@@ -166,48 +168,61 @@ void emulateMediaGamepad(int gamepadID)
 {
 	Gamepad g(gamepadID);
 
-	if (!g.Connected())
-	{
-		cout << "Waiting for xbox 360 gamepad to be connected... ";
-		while (!g.Connected()) {}
-		cout << "found." << endl;
-	}
-	
-	cout << "Using gamepad " << gamepadID << " as media controller." << endl;
+	while (TRUE)
 
-	while (g.Connected() && !g.GetButtonPressed(XINPUT_GAMEPAD_BACK))
 	{
-		g.Update();
+		if (!g.Connected())
+		{
+			cout << "Waiting for xbox 360 gamepad to be connected... ";
+			while (!g.Connected()) {}
+			cout << "found." << endl;
+		}
 
-		if (g.GetButtonPressed(XINPUT_GAMEPAD_A))
+		cout << "Using gamepad " << gamepadID << " as media controller." << endl;
+		g.Rumble(0.5, 0.5);
+		Sleep(500);
+		g.Rumble();
+
+		while (g.Connected() && !g.GetButtonPressed(XINPUT_GAMEPAD_BACK))
 		{
-			cout << "Music Paused/Playing." << endl;
-			simulateKeyPress(179, 0.5);
-		}
-		if (g.GetButtonPressed(XINPUT_GAMEPAD_RIGHT_SHOULDER))
-		{
-			cout << "Song Skipped." << endl;
-			simulateKeyPress(176, 0.5);
-		}
-		if (g.GetButtonPressed(XINPUT_GAMEPAD_LEFT_SHOULDER))
-		{
-			cout << "Prevous Song." << endl;
-			simulateKeyPress(177, 0.5);
-		}
-		if (g.GetButtonPressed(XINPUT_GAMEPAD_DPAD_UP))
-		{
-			cout << "Volume increased." << endl;
-			simulateKeyPress(175, 0.05);
-		}
-		if (g.GetButtonPressed(XINPUT_GAMEPAD_DPAD_DOWN))
-		{
-			cout << "Volume decreased." << endl;
-			simulateKeyPress(174, 0.05);
-		}
-		if (g.GetButtonPressed(XINPUT_GAMEPAD_B))
-		{
-			cout << "Volume mute/unmute." << endl;
-			simulateKeyPress(173, 0.5);
+			g.Update();
+
+			if (g.GetButtonPressed(XINPUT_GAMEPAD_A))
+			{
+				cout << "Music Paused/Playing." << endl;
+				simulateKeyPress(179, 0.5);
+			}
+			if (g.GetButtonPressed(XINPUT_GAMEPAD_RIGHT_SHOULDER))
+			{
+				cout << "Song Skipped." << endl;
+				simulateKeyPress(176, 0.5);
+			}
+			if (g.GetButtonPressed(XINPUT_GAMEPAD_LEFT_SHOULDER))
+			{
+				cout << "Prevous Song." << endl;
+				simulateKeyPress(177, 0.5);
+			}
+			if (g.GetButtonPressed(XINPUT_GAMEPAD_DPAD_UP))
+			{
+				cout << "Volume increased." << endl;
+				simulateKeyPress(175, 0.05);
+			}
+			if (g.GetButtonPressed(XINPUT_GAMEPAD_DPAD_DOWN))
+			{
+				cout << "Volume decreased." << endl;
+				simulateKeyPress(174, 0.05);
+			}
+			if (g.GetButtonPressed(XINPUT_GAMEPAD_B))
+			{
+				cout << "Volume mute/unmute." << endl;
+				simulateKeyPress(173, 0.5);
+			}
+			if (g.GetButtonPressed(XINPUT_GAMEPAD_X))
+			{
+				cout << "Opening Pandora." << endl;
+				system("start pandora:");
+				Sleep(500);
+			}
 		}
 	}
 }
