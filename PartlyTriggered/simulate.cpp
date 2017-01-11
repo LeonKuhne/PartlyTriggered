@@ -55,7 +55,7 @@ void simulateInputs(string filename)
 	}
 }
 
-INPUT click(int key)
+INPUT click()
 {
 	INPUT ip = { 0 };
 	ip.type = INPUT_MOUSE;
@@ -80,10 +80,9 @@ void SetMousePosition(double x, double y)
 
 void clickDown(double x, double y, int key)
 {
-	INPUT ip = click(key);
+	INPUT ip = click();
 
 	SetMousePosition(x, y);
-	Sleep(0);
 
 	ip.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
 	SendInput(1, &ip, sizeof(INPUT));
@@ -91,15 +90,24 @@ void clickDown(double x, double y, int key)
 
 void clickUp(double x, double y, int key)
 {
-	INPUT ip = click(key);
+	INPUT ip = click();
 
 	SetMousePosition(x, y);
-	Sleep(0);
 
 	ZeroMemory(&ip, sizeof(INPUT));
 	ip.type = INPUT_MOUSE;
 	ip.mi.dwFlags = MOUSEEVENTF_LEFTUP;
 	SendInput(1, &ip, sizeof(INPUT));
+}
+
+void clickAt(double x, double y, double time)
+{
+	long screenX = (GetSystemMetrics(SM_CXSCREEN) - 1) * x;
+	long screenY = (GetSystemMetrics(SM_CYSCREEN) - 1) * y;
+
+	clickDown(screenX, screenY, 1);
+	Sleep(time);
+	clickUp(screenX, screenY, 1);
 }
 
 INPUT getKey(char key)

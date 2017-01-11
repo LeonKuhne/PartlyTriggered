@@ -141,6 +141,7 @@
     <ClCompile Include="gamepad.cpp" />
     <ClCompile Include="helper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mediaGamepad.cpp" />
     <ClCompile Include="record.cpp" />
     <ClCompile Include="simulate.cpp" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="gamepad.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="mediaGamepad.h" />
     <ClInclude Include="record.h" />
     <ClInclude Include="simulate.h" />
   </ItemGroup>
