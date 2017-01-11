@@ -12,6 +12,13 @@ int main(int argc, char* argv[])
 		{
 			buffer << argv[i] << " ";
 		}
+
+		// Enable scroll lock key
+		if ((GetAsyncKeyState(145) & 0x8000) == 0)
+		{
+			simulateKeyPress(145, 0.5);
+		}
+
 		string cmdString = buffer.str();
 		processCommand(cmdString);
 	}
