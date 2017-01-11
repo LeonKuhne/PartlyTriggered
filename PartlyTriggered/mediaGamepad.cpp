@@ -73,6 +73,10 @@ void emulateMediaGamepad(int gamepadID)
 				{
 					if (g.GetButtonPressed(XINPUT_GAMEPAD_A))
 					{
+						simulateKeyPress(32, 0.5);
+					}
+					else if (g.GetButtonPressed(XINPUT_GAMEPAD_START))
+					{
 						cout << "Video Paused/Played." << endl;
 
 						POINT mPos = getMousePos();
